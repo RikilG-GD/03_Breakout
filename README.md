@@ -22,6 +22,7 @@ Windows users, please make sure that you have Love2D installation in `PATH` to r
 
 Music Credits
 
+- [opengameart](https://opengameart.org/content/electronic-music-pack) for the background music
 - [jfxr](https://jfxr.frozenfractal.com/#) for death and jump sound
 
 For the Idea and game structure
@@ -31,4 +32,4 @@ For the Idea and game structure
 For the basic introduction to lua and code snippets
 
 - GD50's breakout implementation on [github](https://github.com/games50/breakout/)
-- Lua class helper file from [here](https://github.com/vrld/hump/blob/master/class.lua)
+- Lua class helper file from [here](https://github.com/jonstoler/class.lua)
