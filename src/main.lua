@@ -3,8 +3,8 @@ require 'code/dependencies'
 gFonts = {
     ['small'] = love.graphics.newFont('assets/fonts/Retro_Gaming.ttf', 18),
     ['medium'] = love.graphics.newFont('assets/fonts/Retro_Gaming.ttf', 28),
-    ['large'] = love.graphics.newFont('assets/fonts/Retro_Gaming.ttf', 36),
-    ['huge'] = love.graphics.newFont('assets/fonts/Retro_Gaming.ttf', 48),
+    ['large'] = love.graphics.newFont('assets/fonts/Retro_Gaming.ttf', 46),
+    ['huge'] = love.graphics.newFont('assets/fonts/Retro_Gaming.ttf', 62),
 }
 
 gSounds = {
@@ -12,8 +12,11 @@ gSounds = {
 }
 
 gStateMachine = StateMachine{
-    
+    ['menu'] = MenuState(),
+    ['paddleSelect'] = PaddleSelectState(),
 }
+
+gSprites = generateSprites(love.graphics.newImage('assets/sprites/spriteSheet.png'))
 
 function love.keypressed(key)
     love.keyboard.keysPressed[key] = true
@@ -37,7 +40,7 @@ function love.load()
     love.mouse.buttonsPressed = {}
     gSounds['background']:setLooping(true)
     gSounds['background']:play()
-    -- gStateMachine:changeState('title')
+    gStateMachine:changeState('menu')
 end
 
 function love.update(dt)
