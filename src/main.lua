@@ -15,6 +15,7 @@ gSounds = {
 gStateMachine = StateMachine{
     ['menu'] = MenuState(),
     ['paddleSelect'] = PaddleSelectState(),
+    ['serve'] = ServeState(),
 }
 
 gSpriteSheet = love.graphics.newImage('assets/sprites/spriteSheet.png')

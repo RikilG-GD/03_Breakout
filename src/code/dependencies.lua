@@ -5,9 +5,12 @@ require 'code/constants'
 
 -- add required class files
 require 'code/Text'
+require 'code/Paddle'
+require 'code/Ball'
 
 -- add game state machine files
 require 'code/StateMachine'
 require 'code/states/BaseState'
 require 'code/states/MenuState'
 require 'code/states/PaddleSelectState'
+require 'code/states/ServeState'
