@@ -36,7 +36,7 @@ function generatePaddleQuads(spriteSheet)
     for i = 1, paddleColors do
         paddles[i] = {}
         for j = 1, paddleTiers do
-            paddles[i][j] = love.graphics.newQuad(j*(j-1)*10, 60+i*20, j*20, 20, spriteSheet:getDimensions())
+            paddles[i][j] = love.graphics.newQuad(j*(j-1)*30, 60+i*PADDLE_HEIGHT_FACTOR, j*PADDLE_WIDTH_FACTOR, PADDLE_HEIGHT_FACTOR, spriteSheet:getDimensions())
         end
     end
     return paddles
@@ -47,11 +47,24 @@ function generatePowerupQuads(spriteSheet)
 end
 
 function generateBallQuads(spriteSheet)
+    -- each row for 40x40 has 18 quads. skip 4 rows == 18*4
+    -- now skip 1 star, 1 heart, 1 useless-ball = 3
+    local start = 18*4+3+1
+    return table.slice(generateQuads(spriteSheet, 40, 40), start, start+5)
+    --[[
     local balls = {}
     for i = 1, 5 do
         balls[i] = love.graphics.newQuad((i+2)*40, 160, 40, 40, spriteSheet:getDimensions())
     end
     return balls
+    ]]
+end
+
+function generateArrowQuads(spriteSheet)
+    -- each row for 40x40 has 18 quads. skip 4 rows == 18*4
+    -- now skip 1 star, 1 heart and 6 balls = 8
+    local start = 18*4+8+1
+    return table.slice(generateQuads(spriteSheet, 40, 40), start, start+3) -- from [1,4]
 end
 
 function generateHealthQuads(spriteSheet)
@@ -68,6 +81,7 @@ function generateSprites(spriteSheet)
         ['paddles'] = generatePaddleQuads(spriteSheet),
         ['powerups'] = generatePowerupQuads(spriteSheet),
         ['balls'] = generateBallQuads(spriteSheet),
+        ['arrows'] = generateArrowQuads(spriteSheet),
         ['health'] = generateHealthQuads(spriteSheet),
         ['star'] = generateStarQuads(spriteSheet),
     }

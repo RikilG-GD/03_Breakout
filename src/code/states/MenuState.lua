@@ -16,14 +16,16 @@ function MenuState:update(dt)
     end
 
     if isKeyPressed('up') then
+        gSounds['menuOption']:play()
         self.selection = math.max(self.selection - 1, 0)
     elseif isKeyPressed('down') then
+        gSounds['menuOption']:play()
         self.selection = math.min(#self.menuOptions - 1, self.selection + 1)
     end
 
     if isKeyPressed('enter') or isKeyPressed('return') or isKeyPressed('space') then
         if self.selection == 0 then -- play selected
-            
+            gStateMachine:changeState('paddleSelect')
         elseif self.selection == 1 then -- HighScores selected
 
         else
@@ -33,7 +35,6 @@ function MenuState:update(dt)
 end
 
 function MenuState:render()
-    love.graphics.clear(20/255, 20/255, 20/255, 1)
     love.graphics.setColor(1, 1, 0, 1)
     self.title:render()
 
@@ -42,7 +43,8 @@ function MenuState:render()
         self.menuOptions[i]:rePosition(WINDOW_WIDTH/2, 3*WINDOW_HEIGHT/5 + (i-1)*gap)
         if i == self.selection + 1 then
             love.graphics.setColor(1, 1, 1, 0.2)
-            love.graphics.rectangle('fill', self.menuOptions[i].x-gap/2, self.menuOptions[i].y, self.menuOptions[i].width+gap, self.menuOptions[i].height)
+            -- love.graphics.rectangle('fill', self.menuOptions[i].x-gap/2, self.menuOptions[i].y, self.menuOptions[i].width+gap, self.menuOptions[i].height)
+            love.graphics.rectangle('fill', 0, self.menuOptions[i].y, WINDOW_WIDTH, self.menuOptions[i].height)
             love.graphics.setColor(0.1, 1, 0.1, 1)
         else
             love.graphics.setColor(1, 1, 1, 1)

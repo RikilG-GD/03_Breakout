@@ -9,6 +9,7 @@ gFonts = {
 
 gSounds = {
     ['background'] = love.audio.newSource('assets/sounds/Szymon Matuszewski - Art.mp3', 'static'),
+    ['menuOption'] = love.audio.newSource('assets/sounds/MenuOption.wav', 'static'),
 }
 
 gStateMachine = StateMachine{
@@ -16,7 +17,8 @@ gStateMachine = StateMachine{
     ['paddleSelect'] = PaddleSelectState(),
 }
 
-gSprites = generateSprites(love.graphics.newImage('assets/sprites/spriteSheet.png'))
+gSpriteSheet = love.graphics.newImage('assets/sprites/spriteSheet.png')
+gSprites = generateSprites(gSpriteSheet)
 
 function love.keypressed(key)
     love.keyboard.keysPressed[key] = true
@@ -54,6 +56,7 @@ end
 
 function love.draw()
     -- render background
+    love.graphics.clear(20/255, 20/255, 20/255, 1)
 
     gStateMachine:render()
 end
