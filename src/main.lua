@@ -12,14 +12,15 @@ gSounds = {
     ['menuOption'] = love.audio.newSource('assets/sounds/MenuOption.wav', 'static'),
 }
 
+gSpriteSheet = love.graphics.newImage('assets/sprites/spriteSheet.png')
+gSprites = generateSprites(gSpriteSheet)
+
 gStateMachine = StateMachine{
     ['menu'] = MenuState(),
     ['paddleSelect'] = PaddleSelectState(),
     ['serve'] = ServeState(),
+    ['play'] = PlayState(),
 }
-
-gSpriteSheet = love.graphics.newImage('assets/sprites/spriteSheet.png')
-gSprites = generateSprites(gSpriteSheet)
 
 function love.keypressed(key)
     love.keyboard.keysPressed[key] = true

@@ -47,10 +47,10 @@ function generatePowerupQuads(spriteSheet)
 end
 
 function generateBallQuads(spriteSheet)
-    -- each row for 40x40 has 18 quads. skip 4 rows == 18*4
-    -- now skip 1 star, 1 heart, 1 useless-ball = 3
-    local start = 18*4+3+1
-    return table.slice(generateQuads(spriteSheet, 40, 40), start, start+5)
+    -- each row for 20x20 has 36 quads. skip 3 rows == 36*3
+    -- now skip 6 bricks of 3 quads each = 18
+    local start = 36*3+18+1
+    return table.slice(generateQuads(spriteSheet, 20, 20), start, start+5)
     --[[
     local balls = {}
     for i = 1, 5 do
@@ -62,8 +62,8 @@ end
 
 function generateArrowQuads(spriteSheet)
     -- each row for 40x40 has 18 quads. skip 4 rows == 18*4
-    -- now skip 1 star, 1 heart and 6 balls = 8
-    local start = 18*4+8+1
+    -- now skip 1 star, 1 heart = 2
+    local start = 18*4+2+1
     return table.slice(generateQuads(spriteSheet, 40, 40), start, start+3) -- from [1,4]
 end
 
