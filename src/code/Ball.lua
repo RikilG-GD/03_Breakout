@@ -4,8 +4,8 @@ function Ball:init(ballVariant)
     self.ballVariant = ballVariant
     self.width = BALL_WIDTH
     self.height = BALL_HEIGHT
-    self.dx = 250
-    self.dy = -250
+    self.dx = 300
+    self.dy = -300
     self.inServe = false
     self.x = WINDOW_WIDTH/2
     self.y = WINDOW_HEIGHT - GROUND_CLEARANCE - PADDLE_HEIGHT_FACTOR - self.height/2
@@ -49,10 +49,12 @@ function Ball:update(dt, posX)
     self.x = math.min(math.max(self.x, self.width/2), WINDOW_WIDTH - self.width/2)
 
     if self.y+self.height/2 >= WINDOW_HEIGHT or self.y-self.height/2 <= 0 then
+        gSounds['wallHit']:play()
         self.dy = -self.dy
     end
 
     if self.x+self.width/2 >= WINDOW_WIDTH or self.x-self.width/2 <= 0 then
+        gSounds['wallHit']:play()
         self.dx = -self.dx
     end
 end

@@ -14,6 +14,7 @@ function PaddleSelectState:update()
     if isKeyPressed('escape') then
         gStateMachine:changeState('menu')
     elseif isKeyPressed('enter') or isKeyPressed('return') then
+        gSounds['menuOptionSelect']:play()
         gStateMachine:changeState('serve', {
                 paddleVariant = self.paddleVariant+1, -- give the correct one. not 0 indexed
                 ballVariant = self.ballVariant,
@@ -21,10 +22,18 @@ function PaddleSelectState:update()
     end
 
     if isKeyPressed('right') or isKeyPressed('d') then
-        gSounds['menuOption']:play()
+        if self.paddleVariant == #gSprites['paddles'] - 1 then
+            gSounds['menuOptionInvalid']:play()
+        else
+            gSounds['menuOption']:play()
+        end
         self.paddleVariant = math.min(self.paddleVariant + 1, #gSprites['paddles'] - 1)
     elseif isKeyPressed('left') or isKeyPressed('a') then
-        gSounds['menuOption']:play()
+        if self.paddleVariant == 0 then
+            gSounds['menuOptionInvalid']:play()
+        else
+            gSounds['menuOption']:play()
+        end
         self.paddleVariant = math.max(0, self.paddleVariant - 1)
     end
 

@@ -7,6 +7,9 @@ ServeState = BaseState:extend()
         ball,
         level,
         brickLayout,
+        score,
+        health,
+        levelComplete,
     }
 --]]
 
@@ -17,12 +20,22 @@ end
 function ServeState:enter(gameState)
     self.paddle = gameState.paddle or Paddle(gameState.paddleVariant)
     self.ball = gameState.ball or Ball(gameState.ballVariant)
+    self.level = (gameState.level or 0) + 1 -- increment for next level
+    self.brickLayout = gameState.brickLayout
+    self.score = gameState.score or 0
+    self.health = gameState.health or 3
+    self.levelComplete = gameState.levelComplete or true
+
     self.paddle:reset()
     self.ball:reset()
     self.ball.inServe = true
-    self.level = (gameState.level or 0) + 1 -- increment for next level
-    self.brickLayout = self.levelGenerator:generateLevel(self.level) -- generate new brickset
     self.infoText = Text('Press <SPACE> to launch!', gFonts['small'], WINDOW_WIDTH/2, 2*WINDOW_HEIGHT/3)
+    
+    if self.levelComplete then
+        self.brickLayout = self.levelGenerator:generateLevel(self.level) -- generate new brickset
+    end
+
+    self.ball.dy = -math.abs(self.ball.dy)
 end
 
 function ServeState:update(dt)
@@ -36,6 +49,8 @@ function ServeState:update(dt)
                 ball = self.ball,
                 level = self.level,
                 brickLayout = self.brickLayout,
+                score = self.score,
+                health = self.health,
             })
     end
 end

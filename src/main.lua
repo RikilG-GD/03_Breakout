@@ -10,16 +10,24 @@ gFonts = {
 gSounds = {
     ['background'] = love.audio.newSource('assets/sounds/Szymon Matuszewski - Art.mp3', 'static'),
     ['menuOption'] = love.audio.newSource('assets/sounds/MenuOption.wav', 'static'),
+    ['menuOptionSelect'] = love.audio.newSource('assets/sounds/MenuOptionSelect.wav', 'static'),
+    ['menuOptionInvalid'] = love.audio.newSource('assets/sounds/MenuOptionUnavilable.wav', 'static'),
+    ['paddleHit'] = love.audio.newSource('assets/sounds/PaddleHit.wav', 'static'),
+    ['wallHit'] = love.audio.newSource('assets/sounds/WallHit.wav', 'static'),
+    ['brickHit'] = love.audio.newSource('assets/sounds/BrickHit.wav', 'static'),
 }
 
 gSpriteSheet = love.graphics.newImage('assets/sprites/spriteSheet.png')
 gSprites = generateSprites(gSpriteSheet)
+backgroundImage = love.graphics.newImage('assets/sprites/background.jpg')
 
 gStateMachine = StateMachine{
     ['menu'] = MenuState(),
     ['paddleSelect'] = PaddleSelectState(),
     ['serve'] = ServeState(),
     ['play'] = PlayState(),
+    ['victory'] = VictoryState(),
+    ['pause'] = PauseState(),
 }
 
 function love.keypressed(key)
@@ -57,8 +65,9 @@ function love.update(dt)
 end
 
 function love.draw()
-    -- render background
-    love.graphics.clear(20/255, 20/255, 20/255, 1)
+    love.graphics.setColor(1, 1, 1, 1)
+    love.graphics.draw(backgroundImage, 0, 0)
+    -- love.graphics.clear(20/255, 20/255, 20/255, 1)
 
     gStateMachine:render()
 end

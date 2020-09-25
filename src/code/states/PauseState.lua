@@ -1,18 +1,17 @@
-MenuState = BaseState:extend()
+PauseState = BaseState:extend()
 
-function MenuState:enter()
-    self.title = Text('Breakout!', gFonts['huge'], WINDOW_WIDTH/2, WINDOW_HEIGHT/4)
+function PauseState:enter(gameState)
+    self.gameState = gameState
     self.selection = 0
     self.menuOptions = {
-        [1] = Text('Start', gFonts['medium']),
-        [2] = Text('High Scores', gFonts['medium']),
-        [3] = Text('Exit', gFonts['medium']),
+        [1] = Text('Resume', gFonts['medium']),
+        [2] = Text('Main Menu', gFonts['medium']),
     }
 end
 
-function MenuState:update(dt)
-    if isKeyPressed('escape') or isKeyPressed('q') then
-        love.event.quit()
+function PauseState:update(dt)
+    if isKeyPressed('escape') then
+        gStateMachine:changeState('play', self.gameState)
     end
 
     if isKeyPressed('up') then
@@ -23,22 +22,22 @@ function MenuState:update(dt)
         self.selection = math.min(#self.menuOptions - 1, self.selection + 1)
     end
 
-    if isKeyPressed('enter') or isKeyPressed('return') or isKeyPressed('space') then
+    if isKeyPressed('enter') or isKeyPressed('return') then
         gSounds['menuOptionSelect']:play()
-        if self.selection == 0 then -- play selected
-            gStateMachine:changeState('paddleSelect')
-        elseif self.selection == 1 then -- HighScores selected
-
-        else
-            love.event.quit()
+        if self.selection == 0 then -- resume selected
+            gStateMachine:changeState('play', self.gameState)
+        else -- main menu selected
+            gStateMachine:changeState('menu')
         end
     end
 end
 
-function MenuState:render()
-    love.graphics.setColor(1, 1, 0, 1)
-    self.title:render()
+function PauseState:render()
+    love.graphics.setColor(1, 1, 1, 1)
+    self.gameState.paddle:render()
+    self.gameState.ball:render()
 
+    love.graphics.setColor(1, 1, 0, 1)
     local gap = gFonts['medium']:getHeight('High Scores')+5 -- any sample text to get height
     for i = 1, #self.menuOptions do
         self.menuOptions[i]:rePosition(WINDOW_WIDTH/2, 3*WINDOW_HEIGHT/5 + (i-1)*gap)
