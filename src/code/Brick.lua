@@ -8,10 +8,12 @@ function Brick:init(row, col, style, tier)
     self.x = COL_MARGIN + (col - 1)*BRICK_WIDTH + self.width/2
     self.y = ROW_MARGIN + (row - 1)*BRICK_HEIGHT + self.height/2
     self.destroyed = false
+    self.value = 10*self.tier + 10
 end
 
 function Brick:decrementTier()
     self.tier = self.tier - 1
+    self.value = 10*self.tier + 10
     if self.tier < 0 then
         self.destroyed = true
     end

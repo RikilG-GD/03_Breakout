@@ -20,11 +20,19 @@ end
 function ServeState:enter(gameState)
     self.paddle = gameState.paddle or Paddle(gameState.paddleVariant)
     self.ball = gameState.ball or Ball(gameState.ballVariant)
-    self.level = (gameState.level or 0) + 1 -- increment for next level
+    self.level = gameState.level or 0
     self.brickLayout = gameState.brickLayout
     self.score = gameState.score or 0
     self.health = gameState.health or 3
-    self.levelComplete = gameState.levelComplete or true
+    if gameState.levelComplete ~= nil then
+        self.levelComplete = gameState.levelComplete
+    else
+        self.levelComplete = true
+    end
+    
+    if self.levelComplete then
+        self.level = self.level + 1
+    end
 
     self.paddle:reset()
     self.ball:reset()
@@ -45,13 +53,13 @@ function ServeState:update(dt)
     if isKeyPressed('space') or isKeyPressed('enter') or isKeyPressed('return') then
         self.ball.inServe = false
         gStateMachine:changeState('play', {
-                paddle = self.paddle,
-                ball = self.ball,
-                level = self.level,
-                brickLayout = self.brickLayout,
-                score = self.score,
-                health = self.health,
-            })
+            paddle = self.paddle,
+            ball = self.ball,
+            level = self.level,
+            brickLayout = self.brickLayout,
+            score = self.score,
+            health = self.health,
+        })
     end
 end
 

@@ -9,11 +9,13 @@ function Ball:init(ballVariant)
     self.inServe = false
     self.x = WINDOW_WIDTH/2
     self.y = WINDOW_HEIGHT - GROUND_CLEARANCE - PADDLE_HEIGHT_FACTOR - self.height/2
+    self.alive = true
 end
 
 function Ball:reset()
     self.x = WINDOW_WIDTH/2
     self.y = WINDOW_HEIGHT - GROUND_CLEARANCE - PADDLE_HEIGHT_FACTOR - self.height/2
+    self.alive = true
 end
 
 function Ball:collides(obj)
@@ -28,7 +30,6 @@ function Ball:collides(obj)
     objBottom = obj.y + obj.height/2
 
     if ballLeft <= objRight and ballRight >= objLeft and ballTop <= objBottom and ballBottom >= objTop then
-        -- increase speed and return true
         return true
     else
         return false
@@ -48,7 +49,12 @@ function Ball:update(dt, posX)
     self.y = math.min(math.max(self.y, self.height/2), WINDOW_HEIGHT - self.height/2)
     self.x = math.min(math.max(self.x, self.width/2), WINDOW_WIDTH - self.width/2)
 
-    if self.y+self.height/2 >= WINDOW_HEIGHT or self.y-self.height/2 <= 0 then
+    if self.y+self.height/2 >= WINDOW_HEIGHT then
+        self.alive = false
+        return
+    end
+
+    if self.y-self.height/2 <= 0 then
         gSounds['wallHit']:play()
         self.dy = -self.dy
     end

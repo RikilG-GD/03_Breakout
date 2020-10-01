@@ -21,4 +21,7 @@ function VictoryState:render()
     love.graphics.setColor(1, 1, 1, 0.6)
     self.infoText:render()
     love.graphics.setColor(1, 1, 1, 1)
+
+    love.graphics.setFont(gFonts['small'])
+    love.graphics.print('Score: ' .. tostring(self.gameState.score), 5, 5)
 end

@@ -2,7 +2,11 @@
 
 ## Improvements Required
 
+- [x] Add Score
+- [x] Add Health/Lives
 - Better collision physics
+- Paddle-Ball deflection
+- [x] Level completion music, pause background music
 - Better sprites for bricks. We need improved paddles, smaller ball
 - PowerUps
   - Power Ball +2/+3 damage to bricks

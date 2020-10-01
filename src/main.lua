@@ -15,6 +15,8 @@ gSounds = {
     ['paddleHit'] = love.audio.newSource('assets/sounds/PaddleHit.wav', 'static'),
     ['wallHit'] = love.audio.newSource('assets/sounds/WallHit.wav', 'static'),
     ['brickHit'] = love.audio.newSource('assets/sounds/BrickHit.wav', 'static'),
+    ['death'] = love.audio.newSource('assets/sounds/Death.wav', 'static'),
+    ['gameOver'] = love.audio.newSource('assets/sounds/GameOver.wav', 'static'),
 }
 
 gSpriteSheet = love.graphics.newImage('assets/sprites/spriteSheet.png')
@@ -28,6 +30,7 @@ gStateMachine = StateMachine{
     ['play'] = PlayState(),
     ['victory'] = VictoryState(),
     ['pause'] = PauseState(),
+    ['gameOver'] = GameOverState(),
 }
 
 function love.keypressed(key)
